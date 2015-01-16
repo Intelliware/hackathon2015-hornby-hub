@@ -11,7 +11,7 @@ angular.module('hornbyApp', [
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/hornby'
       });
 
     $locationProvider.html5Mode(true);

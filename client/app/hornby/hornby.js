@@ -3,7 +3,7 @@
 angular.module('hornbyApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/hornby', {
+      .when('/', {
         templateUrl: 'app/hornby/hornby.html',
         controller: 'HornbyCtrl'
       });
