@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Measurement = require('./measurement.model');
+var lambda = require('./lambda');
 
 // Get list of measurements
 exports.index = function(req, res) {
@@ -31,7 +32,7 @@ exports.show = function(req, res) {
 
 // Creates a new measurement in the DB.
 exports.create = function(req, res) {
-	req.body.name = req.body.name + " Buddy";
+	lambda.calculate(req.body);
   Measurement.create(req.body, function(err, measurement) {
     if(err) { return handleError(res, err); }
     return res.json(201, measurement);
@@ -40,6 +41,7 @@ exports.create = function(req, res) {
 
 // Updates an existing measurement in the DB.
 exports.update = function(req, res) {
+	lambda.calculate(req.body);
   if(req.body._id) { delete req.body._id; }
   Measurement.findById(req.params.id, function (err, measurement) {
     if (err) { return handleError(res, err); }
