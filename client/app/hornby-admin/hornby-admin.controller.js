@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hornbyApp')
-  .controller('HornbyCtrl', function ($scope, $http, socket) {
+  .controller('HornbyAdminCtrl', function ($scope, $http, socket) {
 
     $http.get('/api/measurements').success(function(measurements) {
       $scope.measurements = measurements;

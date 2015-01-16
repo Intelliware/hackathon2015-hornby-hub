@@ -11,7 +11,6 @@
           <th>Sensor Id</th>
           <th>Name</th>
           <th>Video Activity</th>
-          <th class="right">Save</th>
         </tr>
 
         </thead>
@@ -19,10 +18,8 @@
         <tbody  ng-repeat="item in measurements">
         <tr>
           <td>{{item.uid}}</td>
-          <td> <input type="text" ng-model="item.name"></td>
-          <!--<td><progressbar value=item.video.data>{{item.video.data}}</progressbar></td>-->
+          <td>{{item.name}}</td>
           <td><progressbar max="5" value=item.video.activity>{{item.video.activity}}</progressbar></td>
-          <td><a href="#" ng-click="saveMeasurement(item)">Save</a></td>
         </tr>
         </tbody>
 
