@@ -6,8 +6,7 @@ angular.module('hornbyApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap',
-
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -21,7 +20,7 @@ angular.module('hornbyApp', [
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
-      // Add authorization token to headers
+      // Add authorization token to headersx
       request: function (config) {
         config.headers = config.headers || {};
         if ($cookieStore.get('token')) {
