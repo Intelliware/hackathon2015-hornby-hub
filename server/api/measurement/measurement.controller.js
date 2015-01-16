@@ -39,7 +39,9 @@ var empty_measure = {
 
 // Creates a new measurement in the DB.
 var create = function(req, res) {
-  lambda.calculate(req.body);
+  
+  req.body.video = lambda.calculate( req.body.video ? req.body.video : {} );
+  req.body.audio = lambda.calculate( req.body.audio ? req.body.audio : {} );
   Measurement.create(req.body, function(err, measurement) {
     if(err) { return handleError(res, err); }
     return res.json(201, measurement);
@@ -51,32 +53,31 @@ exports.create = create;
 
 // Updates an existing measurement in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
+
+  if(req.body._id) { delete req.body._id; } // from original code generation
+
   Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
-    if (err) {
-	create(req, res);
+    if (err || !measurement) {
+      return create(req, res);
     }
 
-    if(!measurement) { return res.send(404); }
-
-    req.body = _.merge(req.body , empty_measure);
-    var newitem = {
-		uid : req.params.id
-    }
+    var newitem = { };
+    var updated = { };
     if ( req.body.name ) { 
 	newitem = {
-		name : req.body.name
+		name : ( req.body ? req.body.name : "" )
 	};
+    	updated = _.merge(measurement, newitem); // from original code generation
     } else {
 	newitem = {
-		video : { data : req.body.video.data ? req.body.video.data : measurement.video.data } ,
-		audio : { data : req.body.audio.data ? req.body.audio.data : measurement.audio.data } 
+		video : { data : req.body.video ? ( req.body.video.data ? req.body.video.data : measurement.video.data ) : measurement.video.data } ,
+		audio : { data : req.body.audio ? ( req.body.audio.data ? req.body.audio.data : measurement.audio.data ) : measurement.audio.data } 
    	};
-    }
-
-    var updated = _.merge(measurement, newitem);
-    if ( req.body.name ) {
-      lambda.calculate(updated);
+    	updated = _.merge(measurement, newitem); // from original code generation
+    	if ( req.body.name ) {
+    	  lambda.calculate(updated.video);
+    	  lambda.calculate(updated.audio);
+    	}
     }
 
     updated.save(function (err) {
