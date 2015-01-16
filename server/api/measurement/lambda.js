@@ -1,7 +1,9 @@
 'use strict';
 
+var interval = 2.5;  // seconds
+var targettime = 60; // seconds
 exports.calculate = function(measure) {
-	var factor = 10;
+	var factor = targettime / interval;
 
 	measure.count = ( measure.count ? measure.count : 0 );
 	measure.data = ( measure.data ? measure.data : 0 );

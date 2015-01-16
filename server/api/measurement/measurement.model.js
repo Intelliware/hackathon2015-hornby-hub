@@ -19,8 +19,7 @@ var MeasurementSchema = new Schema({
 	lambda : Number,
 	std : Number,
 	activity : Number
-  },
-  active: Boolean
+  }
 });
 
 module.exports = mongoose.model('Measurement', MeasurementSchema);

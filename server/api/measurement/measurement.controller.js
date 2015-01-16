@@ -23,7 +23,7 @@ exports.index = function(req, res) {
 
 // Get a single measurement
 exports.show = function(req, res) {
-  Measurement.findById(req.params.id, function (err, measurement) {
+  Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
     if(err) { return handleError(res, err); }
     if(!measurement) { return res.send(404); }
     return res.json(measurement);
@@ -31,7 +31,7 @@ exports.show = function(req, res) {
 };
 
 // Creates a new measurement in the DB.
-exports.create = function(req, res) {
+var create = function(req, res) {
   lambda.calculate(req.body);
   Measurement.create(req.body, function(err, measurement) {
     if(err) { return handleError(res, err); }
@@ -39,27 +39,28 @@ exports.create = function(req, res) {
   });
 };
 
+exports.create = create;
+
+
 // Updates an existing measurement in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
-    if (err) { 
-      Measurement.create(lambda.calculate(req.body), function(err, measurement) {
-        if(err) { return handleError(res, err); }
-        return res.json(201, measurement);
-      });
+    if (err) {
+	create(req, res);
     }
+
     if(!measurement) { return res.send(404); }
 
-    if(req.body.video.lambda) { delete req.body.video.lambda; }
-    if(req.body.video.std) { delete req.body.video.std; }
-    if(req.body.video.count) { delete req.body.video.count; }
-    if(req.body.audio.lambda) { delete req.body.audio.lambda; }
-    if(req.body.audio.std) { delete req.body.audio.std; }
-    if(req.body.audio.count) { delete req.body.audio.count; }
+    var newitem = {
+	uid : req.params.id ,
+	video : { data : req.body.video.data ? req.body.video.data : measurement.video.data } ,
+	audio : { data : req.body.audio.data ? req.body.audio.data : measurement.audio.data } 
+    };
+    if ( req.body.name ) { newitem.name = req.body.name }
 
-    var updated = _.merge(measurement, req.body);
-    if ( ! req.body.name ) {
+    var updated = _.merge(measurement, newitem);
+    if ( req.body.name ) {
       lambda.calculate(update);
     }
 
