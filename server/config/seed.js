@@ -50,27 +50,50 @@ User.find({}).remove(function() {
 });
 
 Measurement.find({}).remove(function() {
-  Measurement.create({
-      uid: '123',
-      name: 'third floor kitchen',
+  Measurement.create(
+{
+      uid: 'k1',
+      name: 'Kitchen 1st floor',
       video: {
-        data: 10,
-        activity: 1
+        data: 0,
+        activity: 0
       },
       audio: {
-        data: 90,
-        activity: 3
+        data: 0,
+        activity: 0
       }
     }, {
-      uid: '456',
-      name: 'first floor kitchen',
+      uid: 'k3',
+      name: 'Kitchen 3rd floor',
       video: {
-        data: 90,
-        activity: 2
+        data: 0,
+        activity: 0
       },
       audio: {
-        data: 90,
-        activity: 5
+        data: 0,
+        activity: 0
+      }
+    }, {
+      uid: 'b',
+      name: 'Basement',
+      video: {
+        data: 0,
+        activity: 0
+      },
+      audio: {
+        data: 0,
+        activity: 0
+      }
+    }, {
+      uid: 'k5',
+      name: 'Kitchen 5th floor',
+      video: {
+        data: 0,
+        activity: 0
+      },
+      audio: {
+        data: 0,
+        activity: 0
       }
     }, function() {
       console.log('finished populating measurements');
