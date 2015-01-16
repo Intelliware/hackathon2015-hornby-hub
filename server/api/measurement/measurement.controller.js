@@ -61,11 +61,18 @@ exports.update = function(req, res) {
 
     req.body = _.merge(req.body , empty_measure);
     var newitem = {
-	uid : req.params.id ,
-	video : { data : req.body.video.data ? req.body.video.data : measurement.video.data } ,
-	audio : { data : req.body.audio.data ? req.body.audio.data : measurement.audio.data } 
-    };
-    if ( req.body.name ) { newitem.name = req.body.name }
+		uid : req.params.id
+    }
+    if ( req.body.name ) { 
+	newitem = {
+		name : req.body.name
+	};
+    } else {
+	newitem = {
+		video : { data : req.body.video.data ? req.body.video.data : measurement.video.data } ,
+		audio : { data : req.body.audio.data ? req.body.audio.data : measurement.audio.data } 
+   	};
+    }
 
     var updated = _.merge(measurement, newitem);
     if ( req.body.name ) {
