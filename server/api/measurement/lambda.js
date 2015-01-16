@@ -17,7 +17,7 @@ exports.calculate = function(measure) {
 	measure.lambda = measure.lambda * ( factor - 1 ) / factor  + measure.data / factor ;
 
 	measure.activity = Math.max( ( measure.data - measure.lambda ) / measure.std , 0);
-
+	console.log( " >> lambda : " + JSON.stringify(measure) );
 	return measure;
 }
 
