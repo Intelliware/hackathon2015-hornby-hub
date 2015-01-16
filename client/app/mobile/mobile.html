@@ -6,10 +6,9 @@
 
       <table class="table table-striped">
 
-        <tbody  ng-repeat="item in measurements">
+        <tbody ng-repeat="item in measurements">
         <tr>
-          <td><progressbar max="10" value=item.video.activity>{{item.video.activity}}</progressbar></td>
-          <td><progressbar max="5" value=item.audio.activity>{{item.audio.activity}}</progressbar></td>
+          <td><progressbar max="5" value=item.audio.activity>{{item.name + " " + item.audio.activity}}</progressbar></td>
         </tr>
         </tbody>
 
