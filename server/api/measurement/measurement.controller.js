@@ -30,6 +30,13 @@ exports.show = function(req, res) {
   });
 };
 
+
+var empty_measure = {
+  uid: "",
+  video : { } ,
+  audio : { } 
+};
+
 // Creates a new measurement in the DB.
 var create = function(req, res) {
   lambda.calculate(req.body);
@@ -52,6 +59,7 @@ exports.update = function(req, res) {
 
     if(!measurement) { return res.send(404); }
 
+    req.body = _.merge(req.body , empty_measure);
     var newitem = {
 	uid : req.params.id ,
 	video : { data : req.body.video.data ? req.body.video.data : measurement.video.data } ,
@@ -61,7 +69,7 @@ exports.update = function(req, res) {
 
     var updated = _.merge(measurement, newitem);
     if ( req.body.name ) {
-      lambda.calculate(update);
+      lambda.calculate(updated);
     }
 
     updated.save(function (err) {
