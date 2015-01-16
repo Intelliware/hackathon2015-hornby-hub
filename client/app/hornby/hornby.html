@@ -12,6 +12,7 @@
           <th>Item</th>
           <th>Name</th>
           <th>Video</th>
+          <th>Save</th>
         </tr>
 
         </thead>
@@ -19,8 +20,9 @@
         <tbody  ng-repeat="item in measurements">
         <tr>
           <td>{{item.uid}}</td>
-          <td>{{item.name}}</td>
+          <td> <input type="text" ng-model="item.name"></td>
           <td>{{item.video.data}}</td>
+          <td><a href="#" ng-click="saveMeasurement(item)">Save</a></td>
         </tr>
         </tbody>
 

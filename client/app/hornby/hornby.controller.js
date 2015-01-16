@@ -10,4 +10,8 @@ angular.module('hornbyApp')
       socket.syncUpdates('measurement', $scope.measurements);
     });
 
+    $scope.saveMeasurement = function (measurement) {
+      $http.put('/api/measurements/' + measurement.uid, measurement);
+    }
+
   });
