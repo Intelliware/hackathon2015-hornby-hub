@@ -44,7 +44,9 @@ var create = function(req, res) {
 exports.create = create;
 
 
-exports.update = function(req, res) {
+var update = function(req, res) {
+  console.log("RECEIVED : " + JSON.stringify(req.body) );
+
   if(req.body._id) { delete req.body._id; } // from original code generation
   if(req.body.__v) { delete req.body.__v; } // from original code generation
 
@@ -60,15 +62,15 @@ exports.update = function(req, res) {
 	measurement.audio = measurement.audio || {};
 	if (req.body.video) {
 		measurement.video.data = req.body.video.data || 0;
+    	  console.log( "lambda.calculate(updated.video);" );
+    	  	lambda.calculate(measurement.video);
 	}
 	if (req.body.audio) {
 		measurement.audio.data = req.body.audio.data || 0;
+    	  console.log( "lambda.calculate(updated.audio);" );
+    	  	lambda.calculate(measurement.audio);
 	}
 
-    	  console.log( "lambda.calculate(updated.video);" );
-    	  lambda.calculate(measurement.video);
-    	  console.log( "lambda.calculate(updated.audio);" );
-    	  lambda.calculate(measurement.audio);
     }
 
     measurement.save(function (err) {
@@ -78,6 +80,9 @@ exports.update = function(req, res) {
   });
 };
 
+//console.log( update( { params : { id : "123" } , body :  {"uid":"123","video":{"data":27036},"audio":{}} } ) );
+
+exports.update = update;
 
 // Deletes a measurement from the DB.
 exports.destroy = function(req, res) {
@@ -92,5 +97,6 @@ exports.destroy = function(req, res) {
 };
 
 function handleError(res, err) {
+  console.log( "ERROR :: " + JSON.stringify(err) );
   return res.send(500, err);
 }
