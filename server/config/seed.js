@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Measurement = require('../api/measurement/measurement.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -44,6 +45,23 @@ User.find({}).remove(function() {
     password: 'admin'
   }, function() {
       console.log('finished populating users');
+    }
+  );
+});
+
+Measurement.find({}).remove(function() {
+  Measurement.create({
+      uid: 'kitchen',
+      video: {
+        data: 56
+      }
+    }, {
+      uid: 'kitchen',
+      video: {
+        data: 58
+      }
+    }, function() {
+      console.log('finished populating measurements');
     }
   );
 });
