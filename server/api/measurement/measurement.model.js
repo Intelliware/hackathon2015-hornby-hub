@@ -7,12 +7,14 @@ var MeasurementSchema = new Schema({
   uid: String,
   video : {
 	data : Number,
+	count : Number,
 	lambda : Number,
 	std : Number,
 	activity : Number
   },
   audio : {
 	data : Number,
+	count : Number,
 	lambda : Number,
 	std : Number,
 	activity : Number
