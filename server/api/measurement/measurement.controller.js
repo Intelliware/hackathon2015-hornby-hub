@@ -48,10 +48,11 @@ exports.create = create;
 exports.updateX = function(req, res) {
 
   if(req.body._id) { delete req.body._id; } // from original code generation
+  if(req.body.__v) { delete req.body.__v; } // from original code generation
 
   Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
     if (err || !measurement) {
-      return create(req, res);
+//      return create(req, res);
     }
 
     var newitem = { };
@@ -67,17 +68,13 @@ exports.updateX = function(req, res) {
 		audio : { data : req.body.audio ? ( req.body.audio.data ? req.body.audio.data : measurement.audio.data ) : measurement.audio.data } 
    	};
     	updated = _.merge(measurement, newitem); // from original code generation
-    	if ( req.body.name ) {
-	  console.log( "lambda.calculate(updated.video);" );
-    	  lambda.calculate(updated.video);
-    	  console.log( "lambda.calculate(updated.audio);" );
-    	  lambda.calculate(updated.audio);
-    	}
+        updated.video = lambda.calculate(updated.video);
+        updated.audio = lambda.calculate(updated.audio);
     }
 
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.json(200, measurement);
+      return res.json(200, updated);
     });
   });
 };
