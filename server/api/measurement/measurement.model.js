@@ -8,12 +8,14 @@ var MeasurementSchema = new Schema({
   video : {
 	data : Number,
 	lambda : Number,
-	std : Number
+	std : Number,
+	activity : Number
   },
   audio : {
 	data : Number,
 	lambda : Number,
-	std : Number
+	std : Number,
+	activity : Number
   },
   active: Boolean
 });
