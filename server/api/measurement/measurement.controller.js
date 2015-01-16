@@ -49,15 +49,25 @@ exports.update = function(req, res) {
         return res.json(201, measurement);
       });
     }
-    lambda.calculate(req.body);
     if(!measurement) { return res.send(404); }
+
+    if(req.body.video.lambda) { delete req.body.video.lambda; }
+    if(req.body.video.std) { delete req.body.video.std; }
+    if(req.body.video.count) { delete req.body.video.count; }
+    if(req.body.audio.lambda) { delete req.body.audio.lambda; }
+    if(req.body.audio.std) { delete req.body.audio.std; }
+    if(req.body.audio.count) { delete req.body.audio.count; }
+
     var updated = _.merge(measurement, req.body);
+    lambda.calculate(update);
+
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, measurement);
     });
   });
 };
+
 
 // Deletes a measurement from the DB.
 exports.destroy = function(req, res) {
