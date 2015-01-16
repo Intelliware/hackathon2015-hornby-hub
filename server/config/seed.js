@@ -51,12 +51,14 @@ User.find({}).remove(function() {
 
 Measurement.find({}).remove(function() {
   Measurement.create({
-      uid: 'third floor kitchen',
+      uid: '123',
+      name: 'third floor kitchen',
       video: {
         data: 56
       }
     }, {
-      uid: 'first floor kitchen',
+      uid: '456',
+      name: 'first floor kitchen',
       video: {
         data: 58
       }
