@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var MeasurementSchema = new Schema({
+  name: String,
   uid: String,
   video : {
 	data : Number,
