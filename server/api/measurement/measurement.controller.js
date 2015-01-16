@@ -44,68 +44,34 @@ var create = function(req, res) {
 exports.create = create;
 
 
-// Updates an existing measurement in the DB.
-exports.updateX = function(req, res) {
-
+exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; } // from original code generation
   if(req.body.__v) { delete req.body.__v; } // from original code generation
-
-  Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
-    if (err || !measurement) {
-//      return create(req, res);
-    }
-
-    var newitem = { };
-    var updated = { };
-    if ( req.body.name ) { 
-	newitem = {
-		name : ( req.body ? req.body.name : "" )
-	};
-    	updated = _.merge(measurement, newitem); // from original code generation
-    } else {
-	newitem = {
-		video : { data : req.body.video ? ( req.body.video.data ? req.body.video.data : measurement.video.data ) : measurement.video.data } ,
-		audio : { data : req.body.audio ? ( req.body.audio.data ? req.body.audio.data : measurement.audio.data ) : measurement.audio.data } 
-   	};
-    	updated = _.merge(measurement, newitem); // from original code generation
-        updated.video = lambda.calculate(updated.video);
-        updated.audio = lambda.calculate(updated.audio);
-    }
-
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, updated);
-    });
-  });
-};
-
-exports.update = function(req, res) {
-
-  if(req.body._id) { delete req.body._id; } // from original code generation
 
   Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
     if (err || !measurement) {
       return create(req, res);
     }
 
-	var updated = measurement;
     if ( req.body.name ) { 
-	updated.name = req.body.name;
+	measurement.name = req.body.name;
     } else {
+	measurement.video = measurement.video || {};
+	measurement.audio = measurement.audio || {};
 	if (req.body.video) {
-		updated.video.data = req.body.video.data;
+		measurement.video.data = req.body.video.data || 0;
 	}
 	if (req.body.audio) {
-		updated.audio.data = req.body.audio.data;
+		measurement.audio.data = req.body.audio.data || 0;
 	}
 
     	  console.log( "lambda.calculate(updated.video);" );
-    	  lambda.calculate(updated.video);
+    	  lambda.calculate(measurement.video);
     	  console.log( "lambda.calculate(updated.audio);" );
-    	  lambda.calculate(updated.audio);
+    	  lambda.calculate(measurement.audio);
     }
 
-    updated.save(function (err) {
+    measurement.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, measurement);
     });
