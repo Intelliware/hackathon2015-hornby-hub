@@ -41,10 +41,15 @@ exports.create = function(req, res) {
 
 // Updates an existing measurement in the DB.
 exports.update = function(req, res) {
-	lambda.calculate(req.body);
   if(req.body._id) { delete req.body._id; }
   Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
-    if (err) { return handleError(res, err); }
+    if (err) { 
+      Measurement.create(lambda.calculate(req.body), function(err, measurement) {
+        if(err) { return handleError(res, err); }
+        return res.json(201, measurement);
+      });
+    }
+    lambda.calculate(req.body);
     if(!measurement) { return res.send(404); }
     var updated = _.merge(measurement, req.body);
     updated.save(function (err) {
