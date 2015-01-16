@@ -21,7 +21,8 @@
         <tr>
           <td>{{item.uid}}</td>
           <td> <input type="text" ng-model="item.name"></td>
-          <td>{{item.video.data}}</td>
+          <!--<td>{{item.video.data}}</td>-->
+          <td><progressbar value=item.video.data>{{item.video.data}}</progressbar><td>
           <td><a href="#" ng-click="saveMeasurement(item)">Save</a></td>
         </tr>
         </tbody>
