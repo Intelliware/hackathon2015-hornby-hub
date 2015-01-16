@@ -59,7 +59,9 @@ exports.update = function(req, res) {
     if(req.body.audio.count) { delete req.body.audio.count; }
 
     var updated = _.merge(measurement, req.body);
-    lambda.calculate(update);
+    if ( ! req.body.name ) {
+      lambda.calculate(update);
+    }
 
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
