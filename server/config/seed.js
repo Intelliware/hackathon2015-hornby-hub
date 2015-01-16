@@ -55,7 +55,7 @@ Measurement.find({}).remove(function() {
       name: 'third floor kitchen',
       video: {
         data: 10,
-        activity: 1
+        activity: 1.14444444444
       },
       audio: {
         data: 90,
@@ -70,7 +70,7 @@ Measurement.find({}).remove(function() {
       },
       audio: {
         data: 90,
-        activity: 5
+        activity: 0
       }
     }, function() {
       console.log('finished populating measurements');
