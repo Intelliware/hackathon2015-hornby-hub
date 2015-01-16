@@ -15,7 +15,7 @@
 
         </thead>
 
-        <tbody  ng-repeat="item in measurements">
+        <tbody  ng-repeat="item in measurements | orderBy: 'name'">
         <tr>
           <td>{{item.name}}</td>
           <td><progressbar max="5" value=item.video.activity>{{item.video.activity}}</progressbar></td>

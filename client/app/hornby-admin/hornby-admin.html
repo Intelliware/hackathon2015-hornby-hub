@@ -17,7 +17,7 @@
 
         </thead>
 
-        <tbody  ng-repeat="item in measurements">
+        <tbody  ng-repeat="item in measurements | orderBy: 'name'">
         <tr>
           <td>{{item.uid}}</td>
           <td> <input type="text" ng-model="item.name"></td>
