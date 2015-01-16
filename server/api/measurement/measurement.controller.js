@@ -45,7 +45,7 @@ exports.create = create;
 
 
 // Updates an existing measurement in the DB.
-exports.update = function(req, res) {
+exports.updateX = function(req, res) {
 
   if(req.body._id) { delete req.body._id; } // from original code generation
 
@@ -73,6 +73,39 @@ exports.update = function(req, res) {
     	  console.log( "lambda.calculate(updated.audio);" );
     	  lambda.calculate(updated.audio);
     	}
+    }
+
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, measurement);
+    });
+  });
+};
+
+exports.update = function(req, res) {
+
+  if(req.body._id) { delete req.body._id; } // from original code generation
+
+  Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
+    if (err || !measurement) {
+      return create(req, res);
+    }
+
+	var updated = measurement;
+    if ( req.body.name ) { 
+	updated.name = req.body.name;
+    } else {
+	if (req.body.video) {
+		updated.video.data = req.body.video.data;
+	}
+	if (req.body.audio) {
+		updated.audio.data = req.body.audio.data;
+	}
+
+    	  console.log( "lambda.calculate(updated.video);" );
+    	  lambda.calculate(updated.video);
+    	  console.log( "lambda.calculate(updated.audio);" );
+    	  lambda.calculate(updated.audio);
     }
 
     updated.save(function (err) {
