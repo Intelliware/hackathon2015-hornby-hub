@@ -32,7 +32,7 @@ exports.show = function(req, res) {
 
 // Creates a new measurement in the DB.
 exports.create = function(req, res) {
-	lambda.calculate(req.body);
+  lambda.calculate(req.body);
   Measurement.create(req.body, function(err, measurement) {
     if(err) { return handleError(res, err); }
     return res.json(201, measurement);
@@ -43,7 +43,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
 	lambda.calculate(req.body);
   if(req.body._id) { delete req.body._id; }
-  Measurement.findById(req.params.id, function (err, measurement) {
+  Measurement.findOne( { "uid" : req.params.id } , function (err, measurement) {
     if (err) { return handleError(res, err); }
     if(!measurement) { return res.send(404); }
     var updated = _.merge(measurement, req.body);

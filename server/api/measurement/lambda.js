@@ -1,6 +1,6 @@
 'use strict';
 
-function calculate(measure) {
+exports.calculate = function(measure) {
 	var factor = 10;
 
 	measure.count = ( measure.count ? measure.count : 0 );
@@ -18,6 +18,8 @@ function calculate(measure) {
 
 	return measure;
 }
+
+
 
 /*
 var item = { };
