@@ -56,13 +56,21 @@ Measurement.find({}).remove(function() {
       video: {
         data: 10,
         activity: 1
+      },
+      audio: {
+        data: 90,
+        activity: 3
       }
     }, {
       uid: '456',
       name: 'first floor kitchen',
       video: {
         data: 90,
-        activity: 4
+        activity: 2
+      },
+      audio: {
+        data: 90,
+        activity: 5
       }
     }, function() {
       console.log('finished populating measurements');

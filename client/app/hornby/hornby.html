@@ -8,18 +8,18 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>Sensor Id</th>
           <th>Name</th>
           <th>Video Activity</th>
+          <th>Audio Activity</th>
         </tr>
 
         </thead>
 
         <tbody  ng-repeat="item in measurements">
         <tr>
-          <td>{{item.uid}}</td>
           <td>{{item.name}}</td>
           <td><progressbar max="5" value=item.video.activity>{{item.video.activity}}</progressbar></td>
+          <td><progressbar max="5" value=item.audio.activity>{{item.audio.activity}}</progressbar></td>
         </tr>
         </tbody>
 
