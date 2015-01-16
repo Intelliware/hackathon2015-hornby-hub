@@ -54,13 +54,15 @@ Measurement.find({}).remove(function() {
       uid: '123',
       name: 'third floor kitchen',
       video: {
-        data: 10
+        data: 10,
+        activity: 1
       }
     }, {
       uid: '456',
       name: 'first floor kitchen',
       video: {
-        data: 90
+        data: 90,
+        activity: 4
       }
     }, function() {
       console.log('finished populating measurements');
