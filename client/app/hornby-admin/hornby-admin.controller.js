@@ -7,7 +7,7 @@ angular.module('hornbyApp')
       $http.get('/api/measurements').success(function(measurements) {
         $scope.measurements = measurements;
         $log.log("measurements: ", measurements);
-        socket.syncUpdates('measurement', $scope.measurements);
+        //socket.syncUpdates('measurement', $scope.measurements);
       })
     };
 
