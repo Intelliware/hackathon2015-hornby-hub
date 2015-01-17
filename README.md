@@ -1,6 +1,6 @@
-# hackathon2015-hornby-hub
+# hackathon2015-hornby-hub - Hornby Toads
 
-Server and HTML5 client
+![Logo](client/assets/images/hornytoad.png)
 
 https://hackathon2015-hornby.herokuapp.com
 
