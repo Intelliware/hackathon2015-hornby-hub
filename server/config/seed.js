@@ -75,7 +75,7 @@ Measurement.find({}).remove(function() {
       }
     }, {
       uid: 'b',
-      name: 'Basement',
+      name: 'Basement shower',
       video: {
         data: 0,
         activity: 0
