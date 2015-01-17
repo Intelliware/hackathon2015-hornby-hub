@@ -32,10 +32,12 @@ exports.show = function(req, res) {
 
 // Creates a new measurement in the DB.
 var create = function(req, res) {
-  
+
   req.body.video = lambda.calculate( req.body.video ? req.body.video : {} );
   req.body.audio = lambda.calculate( req.body.audio ? req.body.audio : {} );
-  Measurement.create(req.body, function(err, measurement) {
+  var m = req.body;
+  m.name = m.name || 'Unknown';
+  Measurement.create(m, function(err, measurement) {
     if(err) { return handleError(res, err); }
     return res.json(201, measurement);
   });
@@ -55,7 +57,7 @@ var update = function(req, res) {
       return create(req, res);
     }
 
-    if ( req.body.name ) { 
+    if ( req.body.name ) {
 	measurement.name = req.body.name;
     } else {
 	measurement.video = measurement.video || {};
