@@ -9,8 +9,7 @@
         <thead>
         <tr>
           <th>Name</th>
-          <th>Video Activity</th>
-          <th>Audio Activity</th>
+          <th>Activity</th>
         </tr>
 
         </thead>
@@ -19,7 +18,6 @@
         <tr>
           <td>{{item.name}}</td>
           <td><progressbar max="3" value=item.video.activity>{{item.video.activity | number:1}}</progressbar></td>
-          <td><progressbar max="3" value=item.audio.activity>{{item.audio.activity | number:1}}</progressbar></td>
         </tr>
         </tbody>
 
