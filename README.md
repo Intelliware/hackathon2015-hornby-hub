@@ -10,6 +10,8 @@ Is now a good time to go to the kitchen for a coffee and a chat? Or is now a goo
 
 Our hackathon project aimed to solve these problems by harnessing a Raspberry PI with a video camera paired with a NodeJS server and AngularJS frontend.
 
+![Architecture](docs/images/boxes.jpg)
+
 See the PI camera client: https://github.com/Intelliware/hackathon2015-hornby-pi/blob/master/README.md
 
 ## Live Demo
